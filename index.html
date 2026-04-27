@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Camp AI — University of Dayton</title>
+  <meta name="description" content="Camp AI: a summer AI literacy camp at the University of Dayton for middle school students." />
+
+  <style>
+    /* ==========================================================
+       BRAND TOKENS (from Camp AI Brand Guide v1.1)
+       ========================================================== */
+    :root {
+      --ud-red: #CE1141;
+      --ud-blue: #004B8D;
+      --white: #FFFFFF;
+      --body-text: #2D2D2D;
+      --secondary-text: #555555;
+      --bg-red-tint: #FAE8EC;
+      --bg-green-tint: #E8F5E9;
+      --bg-yellow-tint: #FFFDE7;
+      --bg-blue-tint: #E3F2FD;
+      --bg-gray-tint: #F5F5F5;
+      --border-light: #DDDDDD;
+
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.06);
+      --shadow-md: 0 6px 20px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 12px 40px rgba(206, 17, 65, 0.18);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--body-text);
+      background: var(--white);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    /* NAV BAR */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--ud-red);
+      color: var(--white);
+      box-shadow: var(--shadow-sm);
+    }
+    nav .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    nav .nav-brand {
+      font-weight: bold;
+      font-size: 18px;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    nav .nav-brand .logo-mark {
+      width: 32px;
+      height: 32px;
+      background: var(--white);
+      color: var(--ud-red);
+      border-radius: 8px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 14px;
+    }
+    nav .nav-links { display: flex; gap: 28px; list-style: none; }
+    nav .nav-links a {
+      color: var(--white);
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: bold;
+      padding: 6px 0;
+      border-bottom: 2px solid transparent;
+      transition: border-color 0.2s ease;
+    }
+    nav .nav-links a:hover { border-bottom-color: var(--white); }
+    nav .nav-toggle {
+      display: none;
+      background: transparent;
+      border: 2px solid var(--white);
+      color: var(--white);
+      padding: 6px 12px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    @media (max-width: 720px) {
+      nav .nav-links { display: none; }
+      nav .nav-links.open {
+        display: flex;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--ud-red);
+        flex-direction: column;
+        padding: 16px 24px;
+        gap: 16px;
+        box-shadow: var(--shadow-md);
+      }
+      nav .nav-toggle { display: block; }
+    }
+
+    /* HERO */
+    .hero {
+      background: linear-gradient(135deg, var(--ud-red) 0%, #a30d33 100%);
+      color: var(--white);
+      padding: 90px 24px 110px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -100px; right: -100px;
+      width: 400px; height: 400px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 50%;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -150px; left: -100px;
+      width: 350px; height: 350px;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 50%;
+    }
+    .hero-inner { max-width: 900px; margin: 0 auto; position: relative; z-index: 1; }
+    .hero .eyebrow {
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      opacity: 0.9;
+      margin-bottom: 18px;
+    }
+    .hero h1 { font-size: 56px; font-weight: bold; margin-bottom: 18px; line-height: 1.1; }
+    .hero .tagline {
+      font-size: 20px;
+      opacity: 0.95;
+      max-width: 640px;
+      margin: 0 auto 36px;
+    }
+    .hero .cta-row { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-block;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-weight: bold;
+      font-size: 15px;
+      text-decoration: none;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+      font-family: inherit;
+    }
+    .btn-primary { background: var(--white); color: var(--ud-red); }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); }
+    .btn-ghost { background: transparent; color: var(--white); border-color: var(--white); }
+    .btn-ghost:hover { background: var(--white); color: var(--ud-red); }
+    @media (max-width: 540px) {
+      .hero { padding: 60px 20px 80px; }
+      .hero h1 { font-size: 38px; }
+      .hero .tagline { font-size: 17px; }
+    }
+
+    /* QUICK STATS */
+    .quick-stats {
+      max-width: 1100px;
+      margin: -50px auto 0;
+      background: var(--bg-blue-tint);
+      border-radius: 14px;
+      padding: 24px 18px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      box-shadow: var(--shadow-md);
+      position: relative;
+      z-index: 5;
+      border: 1px solid var(--border-light);
+    }
+    .stat { text-align: center; padding: 8px 12px; border-right: 1px solid #c8d8e8; }
+    .stat:last-child { border-right: none; }
+    .stat .label {
+      font-size: 11px;
+      font-weight: bold;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--ud-blue);
+      margin-bottom: 6px;
+    }
+    .stat .value { font-size: 18px; font-weight: bold; color: var(--body-text); }
+    @media (max-width: 720px) {
+      .quick-stats { grid-template-columns: repeat(2, 1fr); margin-top: -40px; }
+      .stat:nth-child(2) { border-right: none; }
+      .stat:nth-child(1), .stat:nth-child(2) { border-bottom: 1px solid #c8d8e8; padding-bottom: 14px; margin-bottom: 6px; }
+    }
+
+    /* SECTIONS */
+    section.content { max-width: 1100px; margin: 0 auto; padding: 80px 24px 40px; }
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      margin-bottom: 28px;
+      padding-bottom: 14px;
+      border-bottom: 3px solid var(--ud-red);
+      flex-wrap: wrap;
+    }
+    .section-header .emoji { font-size: 26px; }
+    .section-header h2 { color: var(--ud-red); font-size: 26px; font-weight: bold; }
+    .section-header .meta { margin-left: auto; font-size: 13px; color: var(--secondary-text); font-weight: bold; }
+
+    /* OVERVIEW */
+    .overview-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 32px; align-items: start; }
+    @media (max-width: 880px) { .overview-grid { grid-template-columns: 1fr; } }
+    .overview-text p { margin-bottom: 16px; font-size: 16px; line-height: 1.7; }
+    .overview-text p:last-child { margin-bottom: 0; }
+    .callout {
+      background: var(--bg-yellow-tint);
+      border-left: 4px solid #f4c020;
+      padding: 22px 24px;
+      border-radius: 8px;
+    }
+    .callout .callout-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-weight: bold;
+      color: #6b4f00;
+      margin-bottom: 10px;
+      font-size: 15px;
+      letter-spacing: 0.5px;
+    }
+    .callout p { font-size: 15px; color: var(--body-text); }
+
+    /* FEATURES */
+    .features-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    @media (max-width: 880px) { .features-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 540px) { .features-grid { grid-template-columns: 1fr; } }
+    .feature-card {
+      background: var(--white);
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      padding: 24px 22px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 4px; height: 100%;
+      background: var(--ud-red);
+      transform: scaleY(0);
+      transform-origin: top;
+      transition: transform 0.25s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--ud-red);
+    }
+    .feature-card:hover::before { transform: scaleY(1); }
+    .feature-card .feature-icon { font-size: 32px; margin-bottom: 12px; }
+    .feature-card h3 { font-size: 16px; font-weight: bold; color: var(--body-text); margin-bottom: 8px; }
+    .feature-card p { font-size: 14px; color: var(--secondary-text); line-height: 1.55; }
+    .feature-card .feature-detail {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease, margin-top 0.3s ease;
+      font-size: 13px;
+      color: var(--body-text);
+    }
+    .feature-card.expanded .feature-detail {
+      max-height: 200px;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid var(--border-light);
+    }
+
+    /* DAY 1 SCHEDULE */
+    .day-card {
+      background: var(--bg-gray-tint);
+      border-radius: 14px;
+      padding: 6px;
+      border: 1px solid var(--border-light);
+    }
+    .day-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 22px;
+      background: var(--white);
+      border-radius: 10px;
+      margin-bottom: 6px;
+    }
+    .day-header h3 { font-size: 18px; font-weight: bold; color: var(--body-text); letter-spacing: 1px; }
+    .day-header .day-badge {
+      background: var(--ud-red);
+      color: var(--white);
+      font-size: 12px;
+      font-weight: bold;
+      padding: 6px 12px;
+      border-radius: 4px;
+      letter-spacing: 1px;
+    }
+    .module-list { list-style: none; }
+    .module-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 22px;
+      background: var(--white);
+      border-radius: 8px;
+      margin-top: 4px;
+      border-left: 3px solid transparent;
+      transition: border-color 0.15s ease, transform 0.15s ease;
+    }
+    .module-item:hover { border-left-color: var(--ud-red); transform: translateX(2px); }
+    .module-item.is-break {
+      background: var(--bg-blue-tint);
+      color: var(--ud-blue);
+      font-weight: bold;
+      font-size: 13px;
+      justify-content: center;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+    }
+    .module-item.is-break .module-icon,
+    .module-item.is-break .module-meta { display: none; }
+    .module-item.is-sub { margin-left: 36px; }
+    .module-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--bg-gray-tint);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      flex-shrink: 0;
+    }
+    .module-content { flex: 1; min-width: 0; }
+    .module-title { font-size: 14px; font-weight: bold; color: var(--body-text); }
+    .module-desc { font-size: 12px; color: var(--secondary-text); margin-top: 2px; }
+    .module-meta {
+      font-size: 11px;
+      font-weight: bold;
+      color: var(--secondary-text);
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+      flex-shrink: 0;
+    }
+
+    /* FEATURED ACTIVITIES (live iframe embeds) */
+    .activity-block { margin-bottom: 60px; }
+    .activity-header {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: end;
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid var(--border-light);
+    }
+    .activity-header .left h3 {
+      color: var(--ud-red);
+      font-size: 22px;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+    .activity-header .left p {
+      color: var(--secondary-text);
+      font-size: 14px;
+      max-width: 600px;
+    }
+    .activity-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+    .tag {
+      background: var(--bg-gray-tint);
+      color: var(--body-text);
+      font-size: 11px;
+      font-weight: bold;
+      padding: 4px 10px;
+      border-radius: 999px;
+      letter-spacing: 0.5px;
+    }
+    .activity-actions { display: flex; gap: 8px; align-items: center; }
+    .btn-sm {
+      background: var(--ud-red);
+      color: var(--white);
+      border: none;
+      padding: 8px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      letter-spacing: 0.5px;
+      font-family: inherit;
+      transition: background 0.15s ease;
+    }
+    .btn-sm:hover { background: #a30d33; }
+    @media (max-width: 720px) {
+      .activity-header { grid-template-columns: 1fr; }
+      .activity-actions { justify-self: start; }
+    }
+
+    .activity-frame {
+      position: relative;
+      width: 100%;
+      height: 720px;
+      background: #0a0a0a;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      border: 2px solid var(--border-light);
+    }
+    .activity-frame iframe { width: 100%; height: 100%; border: none; display: block; }
+    .frame-fullscreen {
+      position: absolute;
+      top: 12px; right: 12px;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--body-text);
+      border: none;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: bold;
+      cursor: pointer;
+      z-index: 5;
+      font-family: inherit;
+    }
+    .frame-fullscreen:hover { background: var(--white); }
+    @media (max-width: 720px) { .activity-frame { height: 600px; } }
+
+    /* VIDEO DEMO */
+    .video-section {
+      background: linear-gradient(180deg, var(--bg-gray-tint) 0%, var(--white) 100%);
+      padding: 80px 24px;
+    }
+    .video-inner { max-width: 1000px; margin: 0 auto; }
+    .video-frame {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background: var(--body-text);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      cursor: pointer;
+    }
+    .video-frame iframe,
+    .video-frame video {
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      border: none;
+    }
+    .video-placeholder {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, var(--ud-red) 0%, #a30d33 100%);
+      color: var(--white);
+      text-align: center;
+      padding: 24px;
+    }
+    .video-placeholder .play-circle {
+      width: 90px; height: 90px;
+      background: rgba(255, 255, 255, 0.2);
+      border: 3px solid var(--white);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+    .video-frame:hover .play-circle {
+      transform: scale(1.08);
+      background: rgba(255, 255, 255, 0.3);
+    }
+    .video-placeholder .play-icon {
+      width: 0; height: 0;
+      border-left: 24px solid var(--white);
+      border-top: 16px solid transparent;
+      border-bottom: 16px solid transparent;
+      margin-left: 6px;
+    }
+    .video-placeholder h3 { font-size: 20px; font-weight: bold; margin-bottom: 6px; }
+    .video-placeholder p { font-size: 14px; opacity: 0.9; }
+    .video-caption { text-align: center; margin-top: 18px; font-size: 14px; color: var(--secondary-text); }
+
+    /* SUCCESS / FAILURE BOX PAIR */
+    .box-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 30px; }
+    @media (max-width: 720px) { .box-pair { grid-template-columns: 1fr; } }
+    .success-box, .failure-box { padding: 20px 22px; border-radius: 10px; border-left: 4px solid; }
+    .success-box { background: var(--bg-green-tint); border-left-color: #4caf50; }
+    .failure-box { background: var(--bg-red-tint); border-left-color: var(--ud-red); }
+    .box-title {
+      font-weight: bold;
+      margin-bottom: 10px;
+      font-size: 14px;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .success-box .box-title { color: #2e7d32; }
+    .failure-box .box-title { color: var(--ud-red); }
+    .box-pair ul { list-style: none; font-size: 14px; line-height: 1.7; }
+    .box-pair ul li::before { content: '•'; margin-right: 10px; font-weight: bold; }
+    .success-box ul li::before { color: #4caf50; }
+    .failure-box ul li::before { color: var(--ud-red); }
+
+    /* TEAM */
+    .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+    @media (max-width: 720px) { .team-grid { grid-template-columns: 1fr; } }
+    .team-card {
+      background: var(--white);
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      padding: 28px 22px;
+      text-align: center;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .team-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+    .team-avatar {
+      width: 72px; height: 72px;
+      border-radius: 50%;
+      background: var(--ud-red);
+      color: var(--white);
+      font-size: 26px;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 14px;
+    }
+    .team-card h4 { font-size: 16px; font-weight: bold; margin-bottom: 4px; }
+    .team-card .role { font-size: 13px; color: var(--secondary-text); font-weight: bold; }
+
+    .tech-list { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
+    .tech-chip {
+      background: var(--white);
+      border: 1.5px solid var(--border-light);
+      color: var(--body-text);
+      font-size: 13px;
+      font-weight: bold;
+      padding: 8px 14px;
+      border-radius: 999px;
+      transition: border-color 0.15s ease, color 0.15s ease;
+    }
+    .tech-chip:hover { border-color: var(--ud-red); color: var(--ud-red); }
+
+    /* FOOTER */
+    footer { background: var(--body-text); color: var(--white); padding: 50px 24px 30px; margin-top: 80px; }
+    footer .footer-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 40px;
+    }
+    @media (max-width: 720px) { footer .footer-inner { grid-template-columns: 1fr; gap: 28px; } }
+    footer h5 {
+      font-size: 13px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+      color: #f8b8c2;
+    }
+    footer p, footer a {
+      font-size: 14px;
+      color: #ccc;
+      text-decoration: none;
+      line-height: 1.7;
+    }
+    footer a:hover { color: var(--white); }
+    footer ul { list-style: none; }
+    .footer-bottom {
+      max-width: 1100px;
+      margin: 30px auto 0;
+      padding-top: 20px;
+      border-top: 1px solid #444;
+      text-align: center;
+      font-size: 12px;
+      color: #888;
+    }
+
+    /* SCROLL REVEAL */
+    .reveal {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-inner">
+      <div class="nav-brand">
+        <span class="logo-mark">AI</span>
+        <span>Camp AI</span>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">Menu</button>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#overview">Overview</a></li>
+        <li><a href="#features">Features</a></li>
+        <li><a href="#schedule">Preview</a></li>
+        <li><a href="#activities">Activities</a></li>
+        <li><a href="#demo">Demo</a></li>
+        <li><a href="#team">Team</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-inner">
+      <div class="eyebrow">University of Dayton • CPS 491 Capstone</div>
+      <h1>Camp AI</h1>
+      <p class="tagline">A summer AI literacy camp for middle school students. Hands-on activities that turn curious kids into confident, critical AI users.</p>
+      <div class="cta-row">
+        <a href="#activities" class="btn btn-primary">Try the activities</a>
+        <a href="#schedule" class="btn btn-ghost">Preview a day</a>
+      </div>
+    </div>
+  </header>
+
+  <!-- QUICK STATS -->
+  <div class="quick-stats reveal">
+    <div class="stat">
+      <div class="label">Audience</div>
+      <div class="value">Grades 6–8</div>
+    </div>
+    <div class="stat">
+      <div class="label">Format</div>
+      <div class="value">Multi-Day Camp</div>
+    </div>
+    <div class="stat">
+      <div class="label">Platform</div>
+      <div class="value">Canvas LMS</div>
+    </div>
+    <div class="stat">
+      <div class="label">Client</div>
+      <div class="value">Dr. Poor</div>
+    </div>
+  </div>
+
+  <!-- OVERVIEW -->
+  <section class="content reveal" id="overview">
+    <div class="section-header">
+      <span class="emoji">🎯</span>
+      <h2>Project Overview</h2>
+      <span class="meta">Spring 2026</span>
+    </div>
+    <div class="overview-grid">
+      <div class="overview-text">
+        <p>Camp AI is a summer camp at the University of Dayton designed to introduce middle schoolers to artificial intelligence in a way that's hands-on, low-pressure, and genuinely fun. Instead of treating AI as a magical black box, campers learn to use it as a tool — and just as importantly, learn when not to trust it.</p>
+        <p>Our team built a full multi-day Canvas course from scratch, with paced modules covering prompt engineering, fact-checking AI hallucinations, AI detection limits, and creative AI use. Every day mixes slides, videos, quizzes, breaks, and interactive activities so campers stay engaged the whole time.</p>
+        <p>The two interactive activities below — an Escape Room and a Defense Lawyer simulation — are playable right on this page. Try them yourself.</p>
+      </div>
+      <div class="callout">
+        <div class="callout-title">🎯 What campers walk away with</div>
+        <p>The ability to write better prompts, recognize when AI gets things wrong, and use AI tools to make creative work they're proud of — without losing sight of their own ideas in the process.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- KEY FEATURES -->
+  <section class="content reveal" id="features">
+    <div class="section-header">
+      <span class="emoji">⭐</span>
+      <h2>Key Features</h2>
+      <span class="meta">Click any card to expand</span>
+    </div>
+    <div class="features-grid">
+      <div class="feature-card" onclick="this.classList.toggle('expanded')">
+        <div class="feature-icon">🎮</div>
+        <h3>Gamified Learning</h3>
+        <p>Lessons framed as missions, challenges, and games instead of lectures.</p>
+        <div class="feature-detail">Game mechanics like timers, points, and progression are wrapped around real concepts so campers stay engaged without losing the learning underneath. Built specifically for middle school attention spans.</div>
+      </div>
+      <div class="feature-card" onclick="this.classList.toggle('expanded')">
+        <div class="feature-icon">✋</div>
+        <h3>Hands-On Activities</h3>
+        <p>Every concept is tied to something campers actually do, not just watch or read.</p>
+        <div class="feature-detail">Interactive in-browser simulations let campers practice prompting, evaluate AI output, and make decisions in low-stakes scenarios. Learning by doing instead of by listening.</div>
+      </div>
+      <div class="feature-card" onclick="this.classList.toggle('expanded')">
+        <div class="feature-icon">🔍</div>
+        <h3>Critical AI Thinking</h3>
+        <p>Campers learn that AI confidence does not equal AI correctness.</p>
+        <div class="feature-detail">Activities directly address hallucinations, detector errors, prompt injection, and the limits of AI reliability. The goal is to graduate campers who can question AI output, not just use it.</div>
+      </div>
+      <div class="feature-card" onclick="this.classList.toggle('expanded')">
+        <div class="feature-icon">📚</div>
+        <h3>Canvas LMS Integration</h3>
+        <p>The full camp ships as a deployable Canvas course with paced, sequentially locked modules.</p>
+        <div class="feature-detail">Modules unlock as campers finish prerequisites, keeping the cohort moving at the same pace and giving instructors less to manage in real time. Drop-in ready for any Canvas instance.</div>
+      </div>
+      <div class="feature-card" onclick="this.classList.toggle('expanded')">
+        <div class="feature-icon">📝</div>
+        <h3>Instructor Guides</h3>
+        <p>Every activity has a paired instructor sheet with facilitation tips and answer keys.</p>
+        <div class="feature-detail">Scripted talking points, redirect strategies for off-track campers, timing buffers, and material checklists. Built so an instructor who has never run the activity can pick it up and lead it confidently.</div>
+      </div>
+      <div class="feature-card" onclick="this.classList.toggle('expanded')">
+        <div class="feature-icon">🛠️</div>
+        <h3>Build Guide + Claude Skill</h3>
+        <p>A how-to guide and a Claude skill so future instructors can build their own Canvas activities.</p>
+        <div class="feature-detail">The build guide walks instructors through setting up a Canvas course in the same style as Camp AI. The Claude skill packages the design patterns and content rules so instructors can generate new activities with AI assistance instead of starting from scratch.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DAY 1 CONTENT PREVIEW -->
+  <section class="content reveal" id="schedule">
+    <div class="section-header">
+      <span class="emoji">📅</span>
+      <h2>Day Content Preview</h2>
+      <span class="meta">Day 1 modules</span>
+    </div>
+    <p style="color: var(--secondary-text); font-size: 14px; margin-top: -12px; margin-bottom: 24px; max-width: 760px;">A peek at what's inside Day 1's Canvas course content. This shows the learning modules only — full camp days also include lunch, recess, group time, and other unstructured activities not listed here.</p>
+
+    <div class="day-card">
+      <div class="day-header">
+        <h3>CAMP AI · DAY 1</h3>
+        <span class="day-badge">INTRO TO AI</span>
+      </div>
+
+      <ul class="module-list">
+        <li class="module-item">
+          <div class="module-icon">📎</div>
+          <div class="module-content">
+            <div class="module-title">1 — AI Camp Kickoff Slides</div>
+            <div class="module-desc">Welcome, ground rules, and what AI actually is</div>
+          </div>
+          <div class="module-meta">Slides</div>
+        </li>
+        <li class="module-item is-sub">
+          <div class="module-icon">📝</div>
+          <div class="module-content">
+            <div class="module-title">1.1 — Post Slide Quiz</div>
+            <div class="module-desc">Quick check on the kickoff content</div>
+          </div>
+          <div class="module-meta">Quiz</div>
+        </li>
+        <li class="module-item is-break">15 minute break</li>
+        <li class="module-item">
+          <div class="module-icon">✏️</div>
+          <div class="module-content">
+            <div class="module-title">1.2 — Quick Draw Challenge</div>
+            <div class="module-desc">See how an AI guesses what you're drawing</div>
+          </div>
+          <div class="module-meta">Activity</div>
+        </li>
+        <li class="module-item">
+          <div class="module-icon">▶️</div>
+          <div class="module-content">
+            <div class="module-title">1.3 — AI Intro Video</div>
+            <div class="module-desc">Short video explaining how AI models learn</div>
+          </div>
+          <div class="module-meta">Video</div>
+        </li>
+        <li class="module-item is-sub">
+          <div class="module-icon">📝</div>
+          <div class="module-content">
+            <div class="module-title">1.4 — Follow Up Quiz</div>
+            <div class="module-desc">Reinforce the video concepts</div>
+          </div>
+          <div class="module-meta">Quiz</div>
+        </li>
+        <li class="module-item is-break">15 minute break</li>
+        <li class="module-item">
+          <div class="module-icon">🌍</div>
+          <div class="module-content">
+            <div class="module-title">1.5 — Everyday AI Activity</div>
+            <div class="module-desc">Spot the AI in apps and tools you already use</div>
+          </div>
+          <div class="module-meta">Activity</div>
+        </li>
+        <li class="module-item">
+          <div class="module-icon">📎</div>
+          <div class="module-content">
+            <div class="module-title">1.6 — Wrap Up</div>
+            <div class="module-desc">Review key takeaways and preview tomorrow</div>
+          </div>
+          <div class="module-meta">Slides</div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- FEATURED ACTIVITIES -->
+  <section class="content reveal" id="activities">
+    <div class="section-header">
+      <span class="emoji">🎮</span>
+      <h2>Featured Activities</h2>
+      <span class="meta">Playable below</span>
+    </div>
+
+    <!-- ESCAPE ROOM -->
+    <div class="activity-block">
+      <div class="activity-header">
+        <div class="left">
+          <h3>🚪 AI Escape Room</h3>
+          <p>Trapped in Marianist Hall by FLYR-9000, a rogue AI who only releases prisoners that prove they can prompt correctly. Six rooms, 45 minutes, five clues to escape.</p>
+          <div class="activity-tags">
+            <span class="tag">Prompt Engineering</span>
+            <span class="tag">Hallucination Detection</span>
+            <span class="tag">Prompt Injection</span>
+            <span class="tag">Temperature</span>
+            <span class="tag">45 min</span>
+          </div>
+        </div>
+        <div class="activity-actions">
+          <a href="escape-room.html" target="_blank" class="btn-sm">Open Full Page ↗</a>
+        </div>
+      </div>
+      <div class="activity-frame">
+        <button class="frame-fullscreen" onclick="openFullscreen('escapeFrame')">⛶ Fullscreen</button>
+        <iframe id="escapeFrame" src="escape-room.html" title="AI Escape Room" loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <!-- DEFENSE LAWYER -->
+    <div class="activity-block">
+      <div class="activity-header">
+        <div class="left">
+          <h3>⚖️ AI Defense Lawyer</h3>
+          <p>Maya Chen is an 8th grader falsely accused of using AI on her essay — flagged by a detector reporting 94% confidence. You're her lawyer. Read the evidence, interview witnesses, pick a strategy, and write the closing argument.</p>
+          <div class="activity-tags">
+            <span class="tag">AI Detection Limits</span>
+            <span class="tag">Critical Thinking</span>
+            <span class="tag">Evidence Evaluation</span>
+            <span class="tag">Writing</span>
+            <span class="tag">45 min</span>
+          </div>
+        </div>
+        <div class="activity-actions">
+          <a href="defense-lawyer.html" target="_blank" class="btn-sm">Open Full Page ↗</a>
+        </div>
+      </div>
+      <div class="activity-frame">
+        <button class="frame-fullscreen" onclick="openFullscreen('lawyerFrame')">⛶ Fullscreen</button>
+        <iframe id="lawyerFrame" src="defense-lawyer.html" title="AI Defense Lawyer" loading="lazy"></iframe>
+      </div>
+    </div>
+
+    <!-- success / failure pair -->
+    <div class="box-pair">
+      <div class="success-box">
+        <div class="box-title">✅ A camper succeeds when they can</div>
+        <ul>
+          <li>Write a prompt that gets a useful answer on the first try</li>
+          <li>Recognize an AI hallucination in real output</li>
+          <li>Defend a decision about when to use or not use AI</li>
+        </ul>
+      </div>
+      <div class="failure-box">
+        <div class="box-title">❌ A camper struggles when they</div>
+        <ul>
+          <li>Accept the first AI answer without checking it</li>
+          <li>Confuse what AI did with what they did themselves</li>
+          <li>Say "AI is always right" or "AI is always wrong"</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEO DEMO -->
+  <section class="video-section reveal" id="demo">
+    <div class="video-inner">
+      <div class="section-header">
+        <span class="emoji">🎬</span>
+        <h2>Video Demo</h2>
+        <span class="meta">Project walkthrough</span>
+      </div>
+      <div class="video-frame" id="videoFrame">
+        <!-- TO ADD YOUR VIDEO: Replace the placeholder div below with one of these:
+
+             YouTube:
+             <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" allowfullscreen></iframe>
+
+             Local file:
+             <video controls poster="thumbnail.jpg">
+               <source src="demo.mp4" type="video/mp4">
+             </video>
+
+             Vimeo:
+             <iframe src="https://player.vimeo.com/video/YOUR_VIDEO_ID" allowfullscreen></iframe>
+        -->
+        <div class="video-placeholder" id="videoPlaceholder">
+          <div class="play-circle"><div class="play-icon"></div></div>
+          <h3>Demo coming soon</h3>
+          <p>Replace this placeholder with your demo video embed</p>
+        </div>
+      </div>
+      <p class="video-caption">A walkthrough of the Camp AI Canvas course, the activities, and the brand system that ties them together.</p>
+    </div>
+  </section>
+
+  <!-- TEAM -->
+  <section class="content reveal" id="team">
+    <div class="section-header">
+      <span class="emoji">👥</span>
+      <h2>The Team</h2>
+      <span class="meta">CPS 491 • Spring 2026</span>
+    </div>
+    <div class="team-grid">
+      <div class="team-card">
+        <div class="team-avatar">QK</div>
+        <h4>Edward "Quad" Kramer IV</h4>
+        <div class="role">Developer</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">KM</div>
+        <h4>Khagendra Mishra</h4>
+        <div class="role">Developer</div>
+      </div>
+      <div class="team-card">
+        <div class="team-avatar">BH</div>
+        <h4>Brock Hensley</h4>
+        <div class="role">Developer</div>
+      </div>
+    </div>
+
+    <div class="section-header" style="margin-top: 60px;">
+      <span class="emoji">⚙️</span>
+      <h2>Tech &amp; Tools</h2>
+    </div>
+    <div class="tech-list">
+      <span class="tech-chip">Canvas LMS</span>
+      <span class="tech-chip">HTML / CSS / JS</span>
+      <span class="tech-chip">docx-js</span>
+      <span class="tech-chip">Anthropic Claude</span>
+      <span class="tech-chip">Microsoft Word</span>
+      <span class="tech-chip">Google Docs</span>
+      <span class="tech-chip">Adobe Illustrator</span>
+      <span class="tech-chip">GitHub Pages</span>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-inner">
+      <div>
+        <h5>Camp AI</h5>
+        <p>An AI literacy summer camp for middle school students at the University of Dayton, built as a CPS 491 capstone project under client Dr. Poor.</p>
+      </div>
+      <div>
+        <h5>Project</h5>
+        <ul>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#features">Features</a></li>
+          <li><a href="#schedule">Preview</a></li>
+          <li><a href="#activities">Activities</a></li>
+          <li><a href="#demo">Demo</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>University</h5>
+        <ul>
+          <li><a href="https://udayton.edu" target="_blank" rel="noopener">University of Dayton</a></li>
+          <li><a href="https://udayton.edu/engineering/departments/computer_science/" target="_blank" rel="noopener">CS Department</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2026 Camp AI Team • CPS 491 Capstone • University of Dayton
+    </div>
+  </footer>
+
+  <script>
+    /* NAV TOGGLE */
+    document.getElementById('navToggle').addEventListener('click', () => {
+      document.getElementById('navLinks').classList.toggle('open');
+    });
+    document.querySelectorAll('#navLinks a').forEach(link => {
+      link.addEventListener('click', () => {
+        document.getElementById('navLinks').classList.remove('open');
+      });
+    });
+
+    /* IFRAME FULLSCREEN */
+    function openFullscreen(id) {
+      const el = document.getElementById(id);
+      if (el.requestFullscreen) el.requestFullscreen();
+      else if (el.webkitRequestFullscreen) el.webkitRequestFullscreen();
+      else if (el.msRequestFullscreen) el.msRequestFullscreen();
+    }
+
+    /* SCROLL REVEAL */
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>

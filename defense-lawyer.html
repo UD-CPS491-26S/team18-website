@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en"><head><script type='text/javascript' src='https://cdn.inst-fs-iad-prod.inscloudgate.net/9mTxrxG1lMWcRB9Hn-Mds-WzKBZvgZoAKMnkgl9NQ33KK1YakkYooG-n2wSDF-N_hJOnq2eUdTz_RQQAI4ci3NozdM7T3eWlHq57vGf7_pjdoRoUy-DjR5ryg6cxMMn9oHEYhk8hBJRD0c6VngjhKzRekeb_oB9918bY1Ydrh6vfVhesvscGPE8ON-4uSjs8q_-Zn9T5nMrE-TagQ53ykhb4EAdePUuzv-vPKbcaQSbaWyxJWQRUKqwjKFjePQOy86QjqFUWmpr5YvB9l0pX8qpOzQT4Bzg0MalE_PniC59iW0uWfyYXL5_pczmIWY2TJpOSoRxVnkPLHrKAXtAT0QQwbHzHVAm_cySmz4aL8AgO69AgTOcfqmLgIHdn4XsYj-JPALBiACGFMWo_RGyDOFeMSNw--MoH2oVqRCJFp1lbkZUHndn8SLWBXFl5Yr3EH2zr003Q30ksI0A1SOvw-vu437vwtXs4xT3gv6QNKZtHUU9dFTku70stZBpqGTwtCyQWBYHf8pruCmOPydWYhnXnqwjCvbuioSHn9shvYIsqLPVv-ycrGmOBWCEbMpF9wRm2ThMn7nYQYWXIQX6CSUdx2eX8OeF0-5Dr_C03nyKuwOcSOiXP7K-WZNxID8xr09evvNPhFoWR6zU43Uz0EBONDamKYEiKn9-GXz7ZkQi5J1FU8dndvseBOUQ-OahU02m6vmz4GoOXa509tKbQxzdcZGKRThsSXTKWKyGIRucM9TmpCmcGTelSF77e0rcQ5l-0_p4x_6pKMbxqDrFu2MiOJL1L7DLRiQUyvzQ0hl0ffG6jQXQZD-6SfDpNcxmIQ7kHTPgcCSflMWuVwIExNne-XahnTWtY_OOG5WO_S5DHz85RPsIX9phuL4AD99Le8F0ivRuDxwjTxBNnh70tdCrI_JH4Mu7vfJwPa2axpknqxW70E4iFZhrr1LC4HRkgkQPldFikBE0cZLGNFGnCP-myUSdZhSKiUi-pIfbYDe-InyvwRxcfTI5-67Q7InHg31SJg-2E3nz8NPUBYWk24ZkpM7Rkj5VpCJRQAn_6lKdo8YvGFKsQz6TsimRFC4Rh7JRqqznyG1w1RTZ6OIGGEKm0g8aGpisP5R_SFWp_ypkhBw2nvPWqaO2hLc8'></script><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AI Defense Lawyer</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:-apple-system,Segoe UI,Arial,sans-serif}
+body{background:#f5f3ef;color:#2a2a2a;padding:16px;min-height:100vh;line-height:1.5}
+.wrap{max-width:880px;margin:0 auto}
+.hud{position:sticky;top:0;background:#f5f3ef;border-bottom:2px solid #e5e0d8;padding:12px 0;margin-bottom:16px;z-index:10;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.timer{font-size:22px;font-weight:900;color:#c8102e;font-family:monospace}
+.timer.warn{color:#d48806}
+.timer.danger{color:#c8102e;animation:blink .5s infinite}
+@keyframes blink{50%{opacity:.4}}
+.score{font-size:13px;color:#fff;font-weight:900;background:#c8102e;padding:8px 14px;border-radius:20px}
+.phase{font-size:11px;color:#888;font-weight:700;letter-spacing:1.5px;text-transform:uppercase}
+.banner{background:#c8102e;color:#fff;padding:28px 24px;border-radius:12px;margin-bottom:20px}
+.banner h1{font-size:32px;font-weight:800;margin-bottom:8px;letter-spacing:-.5px}
+.banner p{font-size:14px;opacity:.95;font-style:normal}
+.case-box{background:#fff;border:1px solid #e5e0d8;border-radius:12px;padding:24px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.04)}
+.case-box h2{color:#c8102e;font-size:18px;font-weight:700;margin-bottom:14px;padding-bottom:10px;border-bottom:2px solid #f5f3ef}
+.evidence{background:#fef8f8;border-left:4px solid #c8102e;padding:14px 16px;margin:12px 0;font-size:14px;color:#2a2a2a;border-radius:6px}
+.evidence strong{color:#c8102e}
+.essay{background:#fffef0;border:2px dashed #d4a72c;padding:18px;margin:12px 0;font-family:Georgia,serif;font-size:14px;line-height:1.8;color:#2a2a2a;border-radius:8px}
+.detector{background:#fef0f0;border:1px solid #f5c4c4;padding:14px;margin:12px 0;border-radius:8px;font-family:monospace;font-size:13px;color:#5a1a1a}
+.witness{background:#fff;border:1px solid #e5e0d8;border-radius:10px;padding:14px 16px;margin:10px 0;cursor:pointer;transition:all .2s}
+.witness:hover{border-color:#c8102e;box-shadow:0 4px 12px rgba(200,16,46,.1);transform:translateY(-2px)}
+.witness.interviewed{border-color:#0b9957;background:#f0faf4}
+.witness h3{font-size:15px;color:#c8102e;margin-bottom:2px;font-weight:700}
+.witness.interviewed h3{color:#0b9957}
+.witness .role{font-size:12px;color:#888;font-style:italic}
+.witness .quote{font-size:14px;margin-top:10px;padding:12px;background:#f5f3ef;border-left:3px solid #0b9957;display:none;border-radius:4px;line-height:1.6;color:#2a2a2a}
+.witness.interviewed .quote{display:block}
+.choice{display:block;width:100%;text-align:left;background:#fff;border:1.5px solid #e5e0d8;color:#2a2a2a;padding:14px 16px;margin:8px 0;border-radius:10px;cursor:pointer;font-size:14px;font-family:inherit;transition:all .15s;line-height:1.5}
+.choice:hover{border-color:#c8102e;background:#fffafa;transform:translateX(4px)}
+.choice.picked{background:#c8102e;border-color:#c8102e;color:#fff;font-weight:600}
+.qlabel{color:#888;font-weight:700;font-size:11px;margin:16px 0 8px;letter-spacing:1.5px;text-transform:uppercase}
+textarea{width:100%;background:#fff;border:1.5px solid #e5e0d8;color:#2a2a2a;padding:14px;font-size:14px;font-family:inherit;border-radius:10px;min-height:100px;resize:vertical;line-height:1.6}
+textarea:focus{outline:none;border-color:#c8102e;box-shadow:0 0 0 3px rgba(200,16,46,.1)}
+.char-count{font-size:12px;color:#888;text-align:right;margin-top:6px;font-weight:600}
+.char-count.ok{color:#0b9957}
+button.big{background:#c8102e;color:#fff;border:none;padding:16px 24px;font-size:15px;font-weight:700;cursor:pointer;border-radius:10px;font-family:inherit;margin-top:16px;width:100%;transition:all .2s;box-shadow:0 2px 8px rgba(200,16,46,.25)}
+button.big:hover{background:#a00d25;transform:translateY(-1px);box-shadow:0 4px 12px rgba(200,16,46,.35)}
+button.big:disabled{background:#e5e0d8;color:#aaa;cursor:not-allowed;box-shadow:none;transform:none}
+.msg{padding:12px 14px;border-radius:8px;margin-top:12px;font-size:13px;font-weight:600}
+.msg.ok{background:#f0faf4;color:#0b9957;border:1px solid #c3e9d0}
+.msg.bad{background:#fef0f0;color:#c8102e;border:1px solid #f5c4c4;animation:shake .4s}
+.msg.info{background:#f0f4fa;color:#0b3d91;border:1px solid #c4d4ea}
+@keyframes shake{25%{transform:translateX(-4px)}75%{transform:translateX(4px)}}
+.highlight{cursor:pointer;padding:2px 3px;border-radius:3px;transition:background .15s}
+.highlight:hover{background:#fef0f0}
+.highlight.flagged{background:#c8102e;color:#fff;font-weight:600}
+.progress{display:flex;gap:6px;margin-bottom:16px;justify-content:center;flex-wrap:wrap}
+.step{padding:6px 12px;background:#fff;color:#888;border-radius:20px;font-size:11px;font-weight:700;border:1.5px solid #e5e0d8;letter-spacing:.5px}
+.step.cur{background:#c8102e;color:#fff;border-color:#c8102e}
+.step.done{background:#0b9957;color:#fff;border-color:#0b9957}
+.verdict{background:#fff;padding:32px;text-align:center;border:2px solid #0b9957;border-radius:16px;box-shadow:0 4px 20px rgba(11,153,87,.15)}
+.verdict h2{color:#0b9957;font-size:30px;margin-bottom:14px;font-weight:800}
+.verdict .final{font-size:20px;color:#fff;margin:16px 0;padding:16px;background:#0b9957;border-radius:10px;font-weight:700}
+</style></head><body>
+<div class="wrap">
+<div class="hud">
+<div><span class="phase" id="phase">PHASE 1 / 5</span><br><span class="timer" id="timer">45:00</span></div>
+<div class="score" id="score">EVIDENCE: 0 / 10</div>
+<div class="progress" id="progress"></div>
+</div>
+
+<div class="banner">
+<h1>⚖️ AI DEFENSE LAWYER</h1>
+<p>The case of Maya Chen vs. Stonebrook Middle School</p>
+</div>
+
+<div id="content"></div>
+</div>
+
+<script>
+let time=45*60,evidence=0,phase=0,ended=false;
+const state={p1:{read:false},p2:{flagged:[],done:false},p3:{w1:false,w2:false,w3:false,done:false},p4:{pick:null,done:false},p5:{argument:'',done:false}};
+
+const tEl=document.getElementById('timer');
+setInterval(()=>{if(ended)return;time--;if(time<0)time=0;const m=Math.floor(time/60),s=time%60;tEl.textContent=m+':'+(s<10?'0':'')+s;tEl.className='timer'+(time<300?' danger':time<600?' warn':'')},1000);
+
+let actx;
+function beep(f,d,t){try{if(!actx)actx=new(window.AudioContext||window.webkitAudioContext)();const o=actx.createOscillator(),g=actx.createGain();o.type=t||'square';o.frequency.value=f;o.connect(g);g.connect(actx.destination);g.gain.setValueAtTime(.12,actx.currentTime);g.gain.exponentialRampToValueAtTime(.001,actx.currentTime+d);o.start();o.stop(actx.currentTime+d)}catch(e){}}
+const sfx={ok:()=>{beep(600,.1);setTimeout(()=>beep(900,.2),80)},bad:()=>beep(150,.3,'sawtooth'),click:()=>beep(400,.05),win:()=>[500,700,900,1100,1300].forEach((f,i)=>setTimeout(()=>beep(f,.25),i*130))};
+
+function addEv(n){evidence=Math.min(10,evidence+n);document.getElementById('score').textContent='EVIDENCE: '+evidence+' / 10'}
+
+function render(){
+  const p=['BRIEFING','EVIDENCE','WITNESSES','STRATEGY','CLOSING'];
+  document.getElementById('phase').textContent='PHASE '+(phase+1)+' / 5: '+p[phase];
+  document.getElementById('progress').innerHTML=p.map((x,i)=>'<div class="step '+(phase>i?'done':phase===i?'cur':'')+'">'+x+'</div>').join('');
+  const c=document.getElementById('content');
+  let h='';
+
+  // PHASE 1: CASE BRIEFING
+  if(phase===0){
+    h='<div class="case-box"><h2>PHASE 1: THE CASE FILE</h2>'+
+    '<div class="evidence"><strong>CLIENT:</strong> Maya Chen, 8th grader at Stonebrook Middle School</div>'+
+    '<div class="evidence"><strong>ACCUSATION:</strong> Maya submitted an essay about the Wright Brothers. Her English teacher, Ms. Patterson, ran the essay through an AI detection tool called "GhostWriter-Scan." The tool said the essay was <span style="color:#f66;font-weight:bold">94% likely written by AI.</span> Maya has been given a ZERO on the assignment and could be suspended.</div>'+
+    '<div class="evidence"><strong>MAYA\'S STATEMENT:</strong> "I wrote every word of that essay myself. I spent three hours at the library on Saturday. I don\'t even know how to use ChatGPT. Please, you have to help me."</div>'+
+    '<div class="evidence"><strong>YOUR JOB:</strong> You are Maya\'s defense lawyer. You have 45 minutes before the school board meets to decide her punishment. Read the evidence, interview the witnesses, pick a legal strategy, and write your closing argument. If you do your job right, Maya walks free. If not... zero, suspension, and it goes on her permanent record.</div>'+
+    '<p style="color:#ffa;font-size:13px;margin-top:14px;font-style:italic">⚠️ Take your time. Read carefully. Every detail matters.</p>'+
+    '<button class="big" onclick="advance()">ACCEPT THE CASE</button></div>';
+  }
+
+  // PHASE 2: READ THE EVIDENCE
+  else if(phase===1){
+    const words=["Hello","my","name","is","Maya","and","I","am","writing","about","the","Wright","Brothers","who","were","two","brothers","named","Orville","and","Wilbur","that","built","the","first","airplane","in","1903","at","Kitty","Hawk","North","Carolina","They","were","really","cool","because","nobody","thought","people","could","fly","but","they","figured","it","out","with","lots","of","tests","and","crashes","In","conclusion","the","Wright","Brothers","changed","the","world","forever","and","that","is","really","awesome","if","you","think","about","it"];
+    h='<div class="case-box"><h2>PHASE 2: READ THE ESSAY AND THE DETECTOR REPORT</h2>'+
+    '<p style="font-size:13px;margin-bottom:10px;color:#ccc">Read Maya\'s actual essay first. Click any sentence that sounds like a REAL 8th grader wrote it (casual, simple, personal). You need to flag at least 3 to build your case.</p>'+
+    '<div class="essay" id="essay">'+
+    '<p>"<span class="highlight" data-k="0" onclick="flag(0)">Hello, my name is Maya and I am writing about the Wright Brothers.</span> <span class="highlight" data-k="1" onclick="flag(1)">They were two brothers named Orville and Wilbur who built the first airplane in 1903 at Kitty Hawk, North Carolina.</span> <span class="highlight" data-k="2" onclick="flag(2)">They were really cool because nobody thought people could fly, but they figured it out with lots of tests and crashes.</span> <span class="highlight" data-k="3" onclick="flag(3)">In conclusion, the Wright Brothers changed the world forever, and that is really awesome if you think about it."</span></p>'+
+    '</div>'+
+    '<p style="font-size:12px;color:#ffa;margin:10px 0">Notice anything? This essay has simple words, personal voice ("really cool," "really awesome"), and even a grammar mistake. Does this sound like AI wrote it?</p>'+
+    '<div class="detector"><strong style="color:#f66">GHOSTWRITER-SCAN REPORT:</strong><br>'+
+    'Essay: "The Wright Brothers" by Maya Chen<br>'+
+    'Probability AI-generated: <span style="color:#f66;font-size:16px;font-weight:bold">94%</span><br>'+
+    'Confidence: HIGH<br>'+
+    'Method: Pattern matching against known AI outputs<br>'+
+    'Note: Results may vary. Not intended as sole evidence.</div>'+
+    '<p style="font-size:12px;color:#ffa;margin:10px 0">⚠️ Read the detector report carefully. Notice the note at the bottom: "Not intended as sole evidence." Interesting.</p>'+
+    '<p style="font-size:13px;margin-top:14px">Flagged sentences: <strong id="flagct" style="color:#c8102e">'+state.p2.flagged.length+' / 4</strong></p>'+
+    '<button class="big" onclick="finishP2()" '+(state.p2.flagged.length>=3?'':'disabled')+'>FILE EVIDENCE REPORT (need 3+ flagged)</button>'+
+    '<div id="m2"></div></div>';
+  }
+
+  // PHASE 3: WITNESSES
+  else if(phase===2){
+    const q1='"I ran her essay through GhostWriter-Scan and it said 94%. That\'s all I need. I\'ve caught 7 other students this year with the same tool. I don\'t have time to read every essay myself."';
+    const q2='"Maya was at the library Saturday from 10am to 1pm. I saw her. She was writing in a notebook the whole time and she asked me for a book about aviation history. I even helped her check it out."';
+    const q3='"Look, I\'m just a language model. I can tell you that AI detection tools are WRONG about 30-50% of the time according to recent studies. They especially flag simple, clean writing as AI because we AIs are trained to write clean. A good 8th grader writing carefully often looks more "AI" than a lazy one. Detectors can\'t tell the difference between a student who tried hard and a machine."';
+    h='<div class="case-box"><h2>PHASE 3: INTERVIEW THE WITNESSES</h2>'+
+    '<p style="font-size:13px;margin-bottom:10px;color:#ccc">Click each witness to interview them. Read what they say CAREFULLY. You need to interview all 3 before moving on.</p>'+
+    '<div class="witness '+(state.p3.w1?'interviewed':'')+'" onclick="interview(1)"><h3>🧑\u200d🏫 Ms. Patterson - The Teacher</h3><div class="role">The one who accused Maya</div><div class="quote">'+q1+'</div></div>'+
+    '<div class="witness '+(state.p3.w2?'interviewed':'')+'" onclick="interview(2)"><h3>📚 Mr. Davis - The Librarian</h3><div class="role">Was at the library Saturday</div><div class="quote">'+q2+'</div></div>'+
+    '<div class="witness '+(state.p3.w3?'interviewed':'')+'" onclick="interview(3)"><h3>🤖 ChatGPT - The AI Itself</h3><div class="role">Called as an expert witness</div><div class="quote">'+q3+'</div></div>'+
+    '<button class="big" onclick="advance()" '+(state.p3.w1&&state.p3.w2&&state.p3.w3?'':'disabled')+'>FINISH INTERVIEWS</button></div>';
+  }
+
+  // PHASE 4: PICK STRATEGY
+  else if(phase===3){
+    h='<div class="case-box"><h2>PHASE 4: PICK YOUR LEGAL STRATEGY</h2>'+
+    '<p style="font-size:13px;margin-bottom:10px;color:#ccc">Based on the evidence and interviews, what is the STRONGEST argument to defend Maya? Think carefully - this decides the whole case.</p>'+
+    '<div class="qlabel">CHOOSE YOUR STRATEGY:</div>'+
+    '<button class="choice'+(state.p4.pick===0?' picked':'')+'" onclick="pickStrat(0)">A. Argue that Maya is a good student and would never cheat. Character defense.</button>'+
+    '<button class="choice'+(state.p4.pick===1?' picked':'')+'" onclick="pickStrat(1)">B. Argue that AI detectors are unreliable, have a 30-50% error rate, and the librarian gives Maya an alibi. The evidence against her is weak and there is proof she actually wrote it.</button>'+
+    '<button class="choice'+(state.p4.pick===2?' picked':'')+'" onclick="pickStrat(2)">C. Argue that using AI is not actually bad and the school should not punish students for it.</button>'+
+    '<button class="choice'+(state.p4.pick===3?' picked':'')+'" onclick="pickStrat(3)">D. Plead guilty and ask for a lighter punishment.</button>'+
+    '<button class="big" onclick="subStrat()" '+(state.p4.pick!==null?'':'disabled')+'>LOCK IN STRATEGY</button>'+
+    '<div id="m4"></div></div>';
+  }
+
+  // PHASE 5: CLOSING ARGUMENT
+  else if(phase===4&&!state.p5.done){
+    const chars=state.p5.argument.length;
+    h='<div class="case-box"><h2>PHASE 5: WRITE YOUR CLOSING ARGUMENT</h2>'+
+    '<p style="font-size:13px;margin-bottom:10px;color:#ccc">This is it. The school board is waiting. Write your closing argument to defend Maya. Your argument must include:</p>'+
+    '<ul style="margin:0 0 14px 20px;font-size:14px;color:#2a2a2a;line-height:1.8"><li>Mention <strong style="color:#c8102e">Maya</strong> or your client</li><li>At least <strong style="color:#c8102e">2 of these ideas</strong>: the AI detector is wrong, the librarian gives her an alibi, Maya is innocent</li><li>At least <strong style="color:#c8102e">150 characters</strong> (a short paragraph)</li></ul>'+
+    '<textarea id="arg" oninput="updateArg(this.value)" placeholder="Members of the school board, my client Maya Chen is innocent because...">'+state.p5.argument+'</textarea>'+
+    '<div class="char-count'+(chars>=150?' ok':'')+'" id="cc">'+chars+' / 150 characters '+(chars>=150?'✓':'')+'</div>'+
+    '<button class="big" id="bb" onclick="subArg()" '+(chars>=150?'':'disabled')+'>DELIVER CLOSING ARGUMENT</button>'+
+    '<div id="m5"></div></div>';
+  }
+
+  // VERDICT
+  else if(phase===4&&state.p5.done){
+    const mins=Math.floor(time/60),secs=time%60;
+    const timeText=mins+':'+(secs<10?'0':'')+secs;
+    h='<div class="verdict"><h2>⚖️ VERDICT: NOT GUILTY ⚖️</h2>'+
+    '<p style="color:#fff;font-size:14px;line-height:1.6">The school board has reviewed your argument. They agree: the AI detector is unreliable, the alibi is solid, and there is no real proof Maya cheated.</p>'+
+    '<div class="final">MAYA IS CLEARED OF ALL CHARGES</div>'+
+    '<p style="color:#fff;font-size:13px;margin-top:10px">Evidence collected: '+evidence+' / 10</p>'+
+    '<p style="color:#fff;font-size:13px">Time remaining: '+timeText+'</p>'+
+    '<p style="color:gold;font-size:16px;margin-top:16px;font-weight:900;letter-spacing:2px">CASE CODE: JUSTICE4MAYA</p>'+
+    '<p style="color:#fff;font-size:12px;margin-top:10px">Write this code on your worksheet to prove you won the case.</p>'+
+    '<p style="color:#ffa;font-size:13px;margin-top:16px;font-style:italic">⚠️ REAL LESSON: AI detectors really DO have error rates of 30-50%. Students HAVE been falsely accused of cheating because of them. This is happening in real schools right now. Your job as someone growing up with AI is to know when to trust it and when to question it. Today you defended someone who was innocent. That matters.</p></div>';
+  }
+
+  c.innerHTML=h;
+}
+
+function advance(){phase++;sfx.click();render()}
+
+function flag(k){
+  const el=document.querySelector('[data-k="'+k+'"]');
+  if(state.p2.flagged.includes(k)){state.p2.flagged=state.p2.flagged.filter(x=>x!==k);el.classList.remove('flagged')}
+  else{state.p2.flagged.push(k);el.classList.add('flagged');addEv(1)}
+  sfx.click();document.getElementById('flagct').textContent=state.p2.flagged.length+' / 4';
+  const btn=document.querySelector('.big');if(btn&&state.p2.flagged.length>=3)btn.disabled=false;
+}
+function finishP2(){sfx.ok();addEv(1);phase=2;render()}
+
+function interview(n){state.p3['w'+n]=true;addEv(1);sfx.click();render()}
+
+function pickStrat(k){state.p4.pick=k;sfx.click();render()}
+function subStrat(){
+  if(state.p4.pick===1){sfx.ok();addEv(3);phase=4;render()}
+  else{sfx.bad();document.getElementById('m4').innerHTML='<div class="msg bad">❌ That strategy is weak. Think about which argument uses the EVIDENCE you collected. What did the librarian say? What did ChatGPT tell you about detectors?</div>'}
+}
+
+function updateArg(v){state.p5.argument=v;const cc=document.getElementById('cc');const bb=document.getElementById('bb');if(cc){cc.textContent=v.length+' / 150 characters '+(v.length>=150?'✓':'');cc.className='char-count'+(v.length>=150?' ok':'')}if(bb){bb.disabled=v.length<200}}
+function subArg(){
+  const v=state.p5.argument.toLowerCase();
+  const hasDet=v.includes('detect')||v.includes('detecter')||v.includes('ai tool')||v.includes('ghostwriter');
+  const hasLib=v.includes('library')||v.includes('librarian')||v.includes('alibi')||v.includes('saturday')||v.includes('davis');
+  const hasInn=v.includes('innocent')||v.includes('not guilty')||v.includes('didnt cheat')||v.includes("didn't cheat")||v.includes('did not cheat');
+  const hasMaya=v.includes('maya')||v.includes('client')||v.includes('her ')||v.includes('she ');
+  const conceptCount=(hasDet?1:0)+(hasLib?1:0)+(hasInn?1:0);
+  if(conceptCount>=2&&hasMaya&&v.length>=150){
+    sfx.win();state.p5.done=true;ended=true;render();
+  }else{
+    let tips=[];
+    if(conceptCount<2){tips.push('mention at least 2 of these: the AI detector being wrong, the librarian alibi, or that Maya is innocent');}
+    if(!hasMaya){tips.push('mention Maya or your client');}
+    if(v.length<150)tips.push('write at least 150 characters (you have '+v.length+')');
+    document.getElementById('m5').innerHTML='<div class="msg bad">Almost there! Try to: '+tips.join('; ')+'.</div>';
+  }
+}
+
+render();
+</script></body></html>
